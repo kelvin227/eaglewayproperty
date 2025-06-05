@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Award, Clock, Home, Shield, TrendingUp, Users } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const stats = [
   { number: "500+", label: "Properties Sold" },
@@ -53,7 +54,7 @@ export default function HomePage() {
           <Link href="/about" className="text-blue-900 hover:text-blue-700 font-medium">About Us</Link>
           <Link href="/contact" className="text-blue-900 hover:text-blue-700 font-medium">Contact</Link>
           <Link href="/login">
-            <button className="bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-blue-800 transition">
+            <button className="bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-blue-800 transition" onClick={redirect(`${new URL(`http://app.eaglewayproperty/app`)}`)}>
               Live Chat
             </button>
           </Link>
@@ -261,11 +262,9 @@ export default function HomePage() {
                 Contact Us
               </button>
             </Link>
-            <Link href="/login">
-              <button className="bg-blue-900 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-blue-800 transition">
+              <button className="bg-blue-900 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-blue-800 transition" onClick={redirect(`${new URL(`http://app.eaglewayproperty/app`)}`)}>
                 Live Chat Support
               </button>
-            </Link>
           </div>
         </div>
       </section>
