@@ -18,7 +18,7 @@ export default auth(async (req) => {
     if (!subdomain) {
         const isPublicPath = PUBLIC_PATHS.some((publicpath) => pathname.startsWith(publicpath));
         console.log(isPublicPath);
-        if (!isPublicPath) {
+        if (isPublicPath) {
             console.log("redirecting to app");
 
         return NextResponse.redirect(new URL(`http://app.${host}${pathname}`, req.url));
