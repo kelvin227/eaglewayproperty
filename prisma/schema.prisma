@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id
+  email     String   @unique
+  createdAt DateTime @default(now())
+  image     String?  @default("default.png")
+  updatedAt DateTime
+  password  String
+  phoneNo   String?
+  name      String?
+  userName  String?  @unique
+  roles     String?  @default("user")
+  isBlocked Boolean? @default(false)
+
+  conversations conversation[] @relation("AdminConversations")
+  conversations2 conversation[] @relation("User2Conversations")
+  messagesSent Message[] @relation("sender")
+  messagesReceived Message[] @relation("receiver")
+  sentMails SentMail[]
+}
+
+model conversation {
+  id String @id @default(cuid())
+  AdminId String
+  userId2 String 
+  createdAt DateTime @default(now())
+
+  user User @relation("AdminConversations", fields: [AdminId], references: [id])
+  user2 User @relation("User2Conversations", fields: [userId2], references: [id])
+}
+model Message {
+  id String @id @default(cuid())
+  senderId String
+  receiverId String
+  message String
+  opened Boolean @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation("sender", fields: [senderId], references: [id])
+  receiver User @relation("receiver", fields: [receiverId], references: [id])
+
+}
+model SentMail {
+  id        String   @id @default(cuid())
+  to        String
+  subject   String
+  message   String
+  date      DateTime @default(now())
+  adminId   String
+  admin     User     @relation(fields: [adminId], references: [id])
+}
