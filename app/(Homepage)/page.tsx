@@ -194,8 +194,6 @@ export default function HomePage() {
           className="rounded mb-3 w-full h-40 object-cover"
         />
             <h3 className="font-bold text-lg">Modern Family Home</h3>
-            <p className="text-gray-600">3 Bed • 2 Bath • Lekki, Lagos</p>
-            <p className="text-blue-700 font-semibold mt-2">₦45,000,000</p>
             <Link href="/properties/1" className="text-blue-700 hover:underline text-sm mt-2 inline-block">View Details</Link>
           </div>
           <div className="border rounded-lg p-4 shadow hover:shadow-lg transition">
@@ -207,8 +205,6 @@ export default function HomePage() {
           className="rounded mb-3 w-full h-40 object-cover"
         />           
          <h3 className="font-bold text-lg">Luxury Apartment</h3>
-            <p className="text-gray-600">2 Bed • 2 Bath • Victoria Island</p>
-            <p className="text-blue-700 font-semibold mt-2">₦60,000,000</p>
             <Link href="/properties/2" className="text-blue-700 hover:underline text-sm mt-2 inline-block">View Details</Link>
           </div>
           <div className="border rounded-lg p-4 shadow hover:shadow-lg transition">
@@ -220,8 +216,6 @@ export default function HomePage() {
           className="rounded mb-3 w-full h-40 object-cover"
         />
                     <h3 className="font-bold text-lg">Cozy Studio</h3>
-            <p className="text-gray-600">1 Bed • 1 Bath • Ikeja, Lagos</p>
-            <p className="text-blue-700 font-semibold mt-2">₦25,000,000</p>
             <Link href="/properties/3" className="text-blue-700 hover:underline text-sm mt-2 inline-block">View Details</Link>
           </div>
         </div>
