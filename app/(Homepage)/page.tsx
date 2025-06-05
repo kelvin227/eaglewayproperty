@@ -54,7 +54,7 @@ export default function HomePage() {
           <Link href="/about" className="text-blue-900 hover:text-blue-700 font-medium">About Us</Link>
           <Link href="/contact" className="text-blue-900 hover:text-blue-700 font-medium">Contact</Link>
           <Link href="/login">
-            <button className="bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-blue-800 transition" onClick={redirect(`${new URL(`http://app.eaglewayproperty/app`)}`)}>
+            <button className="bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-blue-800 transition" onClick={redirect(`${new URL(`http://app.eaglewayproperty/app/login`)}`)}>
               Live Chat
             </button>
           </Link>
@@ -262,7 +262,7 @@ export default function HomePage() {
                 Contact Us
               </button>
             </Link>
-              <button className="bg-blue-900 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-blue-800 transition" onClick={redirect(`${new URL(`http://app.eaglewayproperty/app`)}`)}>
+              <button className="bg-blue-900 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-blue-800 transition" onClick={redirect(`${new URL(`http://app.eaglewayproperty/app/login`)}`)}>
                 Live Chat Support
               </button>
           </div>
