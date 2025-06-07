@@ -55,7 +55,7 @@ export default function SignUpPage() {
     if (response.success) {
       toast.success(response.message)
 
-      router.replace("/redirect")
+      router.replace("http://app.localhost:3000/main")
     } else {
       toast.error(response.message)
     }

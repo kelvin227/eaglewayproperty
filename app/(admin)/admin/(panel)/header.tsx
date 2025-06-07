@@ -15,7 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { Menu, Wallet, Bell } from "lucide-react";
+import { Menu, Bell } from "lucide-react";
 import { NavItems } from "./config";
 import { LogOut } from "@/action/authaction";
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -41,7 +41,7 @@ export default function Header() {
           />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar></span>
-          <span>Socio</span>
+          <span>Eagleway Property</span>
         </Link>
       </div>
 
@@ -66,26 +66,7 @@ export default function Header() {
         <DropdownMenu></DropdownMenu>
 
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="overflow-hidden rounded-full"
-            >
-              <Wallet />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>My Wallet</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel className="hover:bg-gray-800">
-              <Link href={"/admin_wallet"}>Wallet</Link>
-            </DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem><Link href={'/admin_wallet/transaction'}>Transaction histroy</Link></DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

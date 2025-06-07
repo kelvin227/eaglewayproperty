@@ -3,6 +3,7 @@
 import { signIn, signOut } from "@/auth"
 import { prisma } from "@/lib/db"
 import bcrypt from "bcryptjs"
+import { startChat } from "./chataction"
 
 export async function Login(email: string, password: string, panel: string) {
   try {
@@ -27,6 +28,15 @@ export async function Login(email: string, password: string, panel: string) {
     if (!isMatch) {
       return { success: false, message: "Incorrect password" }
     }
+    const checkchat = await prisma.conversation.findUnique({
+      where:{userId2: existingUser.id},
+    })
+    if (!checkchat) {
+      const startchat = await startChat(email);
+      if(!startchat){
+        return { success: false, message: "unable to start chat" }
+      }
+    }
     await signIn("credentials", {
       email: email,
       password: password,
@@ -50,6 +60,10 @@ export async function SignUp(email: string, password: string, userName: string) 
     })
     if (existingUser) {
       return { success: false, message: "Email already in use" }
+    }
+    const startchat = await startChat(email);
+    if(!startchat){
+      return { success: false, message: "unable to start chat" }
     }
     await signIn("credentials", {
       email: email,

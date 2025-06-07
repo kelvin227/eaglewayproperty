@@ -52,10 +52,11 @@ export default function HomePage() {
           <Link href="/properties" className="text-blue-900 hover:text-blue-700 font-medium">Properties</Link>
           <Link href="/about" className="text-blue-900 hover:text-blue-700 font-medium">About Us</Link>
           <Link href="/contact" className="text-blue-900 hover:text-blue-700 font-medium">Contact</Link>
-          <Link href="/login">
-            <button className="bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-blue-800 transition">
+          <Link href="http://app.eaglewayproperty.com/login" className="text-blue-900 hover:text-blue-700 font-medium">
+          Live chat
+            {/* <button className="bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-blue-800 transition">
               Live Chat
-            </button>
+            </button> */}
           </Link>
         </div>
       </nav>
@@ -261,7 +262,7 @@ export default function HomePage() {
                 Contact Us
               </button>
             </Link>
-            <Link href="/login">
+            <Link href="http://app.eaglewayproperty.com/login">
               <button className="bg-blue-900 text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-blue-800 transition">
                 Live Chat Support
               </button>

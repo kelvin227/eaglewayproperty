@@ -1,42 +1,84 @@
 "use client";
+import { sendMessage } from "@/action/chataction";
+import { useRouter } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 
-const MAX_MESSAGES = 30; // Total messages kept in memory
-const PAGE_SIZE = 10;    // Messages shown per page
+const MAX_MESSAGES = 30;
+const PAGE_SIZE = 10;
 
-export default function ChatPage() {
-  const [messages, setMessages] = useState([
-    { sender: "support", text: "Hello! How can we assist you today?" },
-  ]);
+type chat = {
+  id: string;
+  senderId: string;
+  receiverId: string;
+  message: string;
+  opened: boolean;
+  createdAt: string;
+};
+
+type ChatPageProps = {
+  message: chat[];
+  email: string;
+};
+
+export default function ChatPage({ message, email }: ChatPageProps) {
+  // Merge and sort messages by createdAt
+  const mergedMessages = [...(message || [])]
+    .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+    .map((msg) => ({
+      id: msg.id,
+      sender: msg.senderId === "cmb7b3wp40000410wcgdcuvg8" ? "support" : "user",
+      text: msg.message,
+      createdAt: msg.createdAt,
+    }));
+
+  // If there are no messages, start with a default welcome message
+  const initialMessages =
+    mergedMessages.length > 0
+      ? mergedMessages
+      : [{ id: "welcome", sender: "support", text: "Hello! How can we assist you today?", createdAt: new Date().toISOString() }];
+
+  const [messages, setMessages] = useState(initialMessages);
   const [input, setInput] = useState("");
   const [showCount, setShowCount] = useState(PAGE_SIZE);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
+
+  // Keep local messages in sync with props if they change (e.g., after refresh)
+  useEffect(() => {
+    setMessages(initialMessages);
+  }, [message]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, showCount]);
 
-  const handleSend = (e: React.FormEvent) => {
+  const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
-    let newMessages = [...messages, { sender: "user", text: input }];
+    // Optionally, you can optimistically add the message to local state
+    const newMsg = {
+      id: Math.random().toString(36).substr(2, 9),
+      sender: "user",
+      text: input,
+      createdAt: new Date().toISOString(),
+    };
+    let newMessages = [...messages, newMsg];
     if (newMessages.length > MAX_MESSAGES) {
       newMessages = newMessages.slice(newMessages.length - MAX_MESSAGES);
     }
     setMessages(newMessages);
     setInput("");
-    setShowCount(PAGE_SIZE); // Always show latest PAGE_SIZE messages after sending
-    // Simulate support reply
-    setTimeout(() => {
-      setMessages((msgs) => {
-        let updated = [...msgs, { sender: "support", text: "Thank you for your message. Our agent will reply shortly." }];
-        if (updated.length > MAX_MESSAGES) {
-          updated = updated.slice(updated.length - MAX_MESSAGES);
-        }
-        return updated;
-      });
-      setShowCount(PAGE_SIZE);
-    }, 1200);
+    setShowCount(PAGE_SIZE);
+
+    // Send to server
+    const uploadmessage = await sendMessage(email, input);
+    if (!uploadmessage.success) {
+      console.error("Failed to send message:", uploadmessage.message);
+      // Optionally, remove the optimistic message or show error
+    } else {
+      // Optionally, refresh from server to get admin reply
+      router.refresh();
+    }
   };
 
   // Pagination logic
@@ -73,9 +115,9 @@ export default function ChatPage() {
                 </button>
               </div>
             )}
-            {visibleMessages.map((msg, idx) => (
+            {visibleMessages.map((msg) => (
               <div
-                key={idx + (total - showCount)}
+                key={msg.id + msg.createdAt}
                 className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
               >
                 <div
@@ -86,6 +128,9 @@ export default function ChatPage() {
                   }`}
                 >
                   {msg.text}
+                  <div className="text-xs text-gray-400 mt-1 text-right">
+                    {msg.createdAt ? new Date(msg.createdAt).toLocaleTimeString() : ""}
+                  </div>
                 </div>
               </div>
             ))}

@@ -1,8 +1,8 @@
 import {
   Home,
   ShieldCheck,
-  Wallet,
   Mail,
+  MessageCircle,
 } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 
@@ -21,9 +21,9 @@ export const NavItems: NavItem[] = [
     position: "top",
   },
     {
-    name: "Wallet and Gas tank",
-    href: "/admin_wallet",
-    icon: Wallet,
+    name: "Chats",
+    href: "/chat",
+    icon: MessageCircle,
     position: "top",
   },
   {
