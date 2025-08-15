@@ -21,6 +21,16 @@ type ChatPageProps = {
 };
 
 export default function ChatPage({ message, email }: ChatPageProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      router.refresh();
+    }, 5000); // refresh every 5 seconds
+
+    return () => clearInterval(interval);
+  }, [router]);
+
   // Merge and sort messages by createdAt
   const mergedMessages = [...(message || [])]
     .sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
@@ -41,7 +51,6 @@ export default function ChatPage({ message, email }: ChatPageProps) {
   const [input, setInput] = useState("");
   const [showCount, setShowCount] = useState(PAGE_SIZE);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const router = useRouter();
 
   // Keep local messages in sync with props if they change (e.g., after refresh)
   useEffect(() => {

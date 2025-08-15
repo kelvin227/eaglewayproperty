@@ -4,7 +4,7 @@ import { auth } from '@/auth'
 import ChatPage from '@/components/mainPage'
 import React from 'react'
 
-/* eslint-disable */
+
 
 export default async function Login() {
   const session= await auth()
